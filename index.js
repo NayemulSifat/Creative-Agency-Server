@@ -131,18 +131,16 @@ client.connect(err => {
     const file = req.files.file;
     const serviceTitle = req.body.serviceTitle;
     const serviceDiscription = req.body.serviceDiscription;
-    const filePath = `${__dirname}/services/${file.name}`
-    file.mv(filePath)
-    const newImg = fs.readFileSync(filePath)
-    const encImg = newImg.toString('base64')
+
+    const newImg = file.data;
+    const encImg = newImg.toString('base64');
     var image = {
-      contentType: req.files.file.mimetype,
-      size: req.files.file.size,
+      contentType: file.mimetype,
+      size: file.size,
       img: Buffer.from(encImg, 'base64')
     }
     serviceList.insertOne({ image, serviceTitle, serviceDiscription })
       .then(result => {
-        fs.remove(filePath)
         res.send(result.insertedCount > 0);
       })
   })
@@ -158,8 +156,6 @@ client.connect(err => {
 
   app.get('/admin', (req, res) => {
     const email = req.query.email;
-    console.log(email);
-
     adminCollection.find({ email })
       .toArray((err, collection) => {
         res.send(collection.length > 0)
