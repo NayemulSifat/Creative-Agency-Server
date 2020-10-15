@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.static('service'));
 app.use(fileUpload());
 
-const uri = `mongodb+srv://adminUser:singleforever@cluster0.kqm2a.mongodb.net/CreativeAgency?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.kqm2a.mongodb.net/${process.env.FIRE_DB}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
