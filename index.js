@@ -3,7 +3,6 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
-const fs = require('fs-extra')
 const admin = require("firebase-admin");
 const serviceAccount = require("./config/creative-agency-4ad25-firebase-adminsdk-4w6uy-24f68a0cfd.json");
 require('dotenv').config();
