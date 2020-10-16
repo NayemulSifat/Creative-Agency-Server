@@ -34,6 +34,12 @@ client.connect(err => {
   const adminList = client.db("CreativeAgency").collection("admin");
   const serviceList = client.db("CreativeAgency").collection("services");
 
+// 
+// 
+//  customer service
+// 
+// 
+
   app.post('/addOrder', (req, res) => {
     const newOrder = req.body;
     ordersCollection.insertOne(newOrder)
@@ -90,9 +96,7 @@ client.connect(err => {
 
   // 
   // 
-  // 
   // Admin Pannel Codes
-  // 
   // 
   // 
 
@@ -109,9 +113,11 @@ client.connect(err => {
   // find admin for admin login
 
   app.get('/findAdmin', (req, res) => {
-    adminList.find({})
-      .toArray((err, documents) => {
-        res.send(documents)
+    const email = req.body.email;
+    console.log(email);
+    adminList.find({email: email})
+      .toArray((err, admin) => {
+        res.send(admin.length > 0)
       })
   })
 
@@ -153,14 +159,7 @@ client.connect(err => {
       })
   })
 
-  app.get('/admin', (req, res) => {
-    const email = req.query.email;
-    adminCollection.find({ email })
-      .toArray((err, collection) => {
-        res.send(collection.length > 0)
-      })
-
-  })
+ 
 
 });
 
