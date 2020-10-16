@@ -113,8 +113,7 @@ client.connect(err => {
   // find admin for admin login
 
   app.get('/findAdmin', (req, res) => {
-    const email = req.body.email;
-    console.log(email);
+    const email = req.query.email;
     adminList.find({email: email})
       .toArray((err, admin) => {
         res.send(admin.length > 0)
